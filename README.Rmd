@@ -1,0 +1,45 @@
+---
+title: "PS07"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub Documents
+
+This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+
+## Including Code
+
+*Joining two data frames*
+
+```{r}
+library(nycflights13)
+library(dplyr)
+data_distance_carrier <- flights %>% 
+  group_by(tailnum, carrier)
+data_seats <- planes %>% 
+  group_by(tailnum) 
+joined_flights <- data_seats %>% 
+  inner_join(data_distance_carrier, by = "tailnum")
+joined_flights
+
+```
+
+## Including Plots
+
+*Linegraph of Babynames*
+
+```{r pressure, echo=FALSE}
+library(ggplot2)
+library(babynames)
+babynames_emma_scott <- babynames %>% 
+  filter(name == "Quinn"| name == "Finley")
+ggplot(data = babynames_emma_scott, aes(x= year, y = prop, color =sex, group =sex))+
+  geom_line()+
+  facet_wrap(~name)+
+  labs(title = "Comparison of Quinn and Finley", y = "Proportion", x = "year")
+```
+
